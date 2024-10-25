@@ -28,8 +28,11 @@ public class QuartzConfig {
         factoryBean.setJobDetail(fetchRssJobDetail); // Gắn JobDetail vào trigger (tức là khi trigger kích hoạt, sẽ thực hiện công việc trong JobDetail này)
         factoryBean.setRepeatInterval(60000); // Thiết lập khoảng thời gian giữa các lần thực hiện (ở đây là 60000 ms = 1 phút)
         factoryBean.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY); // Thiết lập số lần lặp là vô hạn, tức là công việc sẽ lặp mãi mãi
-        factoryBean.setMisfireInstruction(SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT); // Thiết lập chiến lược xử lý khi có lỗi kích hoạt (misfire) - sẽ tiếp tục thực hiện với các lần còn lại
+        factoryBean.setMisfireInstruction(SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT);
+        // Thiết lập chiến lược xử lý khi có lỗi kích hoạt (misfire) - sẽ tiếp tục thực hiện với các lần còn lại
         return factoryBean;  // Trả về đối tượng SimpleTrigger đã cấu hình
     }
+
+    //
 }
 

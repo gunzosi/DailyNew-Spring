@@ -148,7 +148,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<Post> getAllPosts(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pubDate", "updatedAt"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC,
+                "pubDate",
+                "updatedAt"));
         return postRepository.findAll(pageable);
     }
 

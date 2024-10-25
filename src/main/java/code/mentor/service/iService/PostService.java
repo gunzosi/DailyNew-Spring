@@ -26,7 +26,4 @@ public interface PostService {
     Page<Post> getAllPosts(int page, int size);
 
     List<Post> getPostsByCategories(List<Integer> categoryIds);
-
-
-
 }
