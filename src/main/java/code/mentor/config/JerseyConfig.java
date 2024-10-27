@@ -1,5 +1,7 @@
 package code.mentor.config;
 
+import code.mentor.component.OdataJpaServiceFactory;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -12,6 +14,7 @@ import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.ext.Provider;
+import org.apache.olingo.odata2.api.ODataServiceFactory;
 import org.apache.olingo.odata2.core.rest.ODataRootLocator;
 import org.apache.olingo.odata2.core.rest.app.ODataApplication;
 import org.apache.olingo.odata2.jpa.processor.api.ODataJPAServiceFactory;
@@ -23,30 +26,33 @@ import java.io.IOException;
 @Component
 @ApplicationPath("/odata")
 public class JerseyConfig extends ResourceConfig {
-    public JerseyConfig(ODataJPAServiceFactory serviceFactory, EntityManagerFactory entityManagerFactory) {
-        ODataApplication oDataApplication =  new ODataApplication();
+
+    public JerseyConfig(OdataJpaServiceFactory serviceFactory, EntityManagerFactory entityManagerFactory) {
+        ODataApplication oDataApplication = new ODataApplication();
         oDataApplication
                 .getClasses()
-                .forEach(c -> {
-                    if (!ODataRootLocator.class.isAssignableFrom(c)) {
+                .forEach( c -> {
+                    if ( !ODataRootLocator.class.isAssignableFrom(c)) {
                         register(c);
                     }
                 });
         register(new ODataServiceRootLocator(serviceFactory));
-        register(new  EntityManagerFilter(entityManagerFactory));
+        register(new EntityManagerFilter(entityManagerFactory));
     }
 
     @Path("/")
     public static class ODataServiceRootLocator extends ODataRootLocator {
-        private final ODataJPAServiceFactory serviceFactory;
 
-        public ODataServiceRootLocator(ODataJPAServiceFactory serviceFactory) {
+        private OdataJpaServiceFactory serviceFactory;
+
+        @Inject
+        public ODataServiceRootLocator (OdataJpaServiceFactory serviceFactory) {
             this.serviceFactory = serviceFactory;
         }
 
         @Override
-        public ODataJPAServiceFactory getServiceFactory() {
-            return serviceFactory;
+        public ODataServiceFactory getServiceFactory() {
+            return this.serviceFactory;
         }
     }
 
@@ -76,7 +82,7 @@ public class JerseyConfig extends ResourceConfig {
                            ContainerResponseContext responseContext) throws IOException {
             EntityManager entityManager = (EntityManager) httpRequest.getAttribute(EM_REQUEST_ATTRIBUTE);
             if (!"GET".equalsIgnoreCase(requestContext.getMethod())) {
-                EntityTransaction entityTransaction = entityManager.getTransaction();
+                EntityTransaction entityTransaction = entityManager.getTransaction(); //we do not commit because it's just a READ
                 if (entityTransaction.isActive() && !entityTransaction.getRollbackOnly()) {
                     entityTransaction.commit();
                 }
@@ -84,4 +90,5 @@ public class JerseyConfig extends ResourceConfig {
             entityManager.close();
         }
     }
+
 }
