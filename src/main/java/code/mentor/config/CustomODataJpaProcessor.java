@@ -44,9 +44,9 @@ public class CustomODataJpaProcessor extends ODataJPADefaultProcessor {
     public ODataResponse readEntity(final GetEntityUriInfo uriParserResultView, final String contentType) throws ODataJPAModelException, ODataJPARuntimeException, ODataNotFoundException, EdmException {
         ODataResponse response = null;
         if (uriParserResultView.getKeyPredicates().size() > 1) {
-            logger.info("READ: Entity {} called with key {} and key {}", uriParserResultView.getTargetEntitySet().getName(), uriParserResultView.getKeyPredicates().get(0).getLiteral(), uriParserResultView.getKeyPredicates().get(1).getLiteral());
+            logger.info("READ: Entity {} called with a key {} and key {}", uriParserResultView.getTargetEntitySet().getName(), uriParserResultView.getKeyPredicates().get(0).getLiteral(), uriParserResultView.getKeyPredicates().get(1).getLiteral());
         } else {
-            logger.info("READ: Entity {} called with key {}", uriParserResultView.getTargetEntitySet().getName(), uriParserResultView.getKeyPredicates().get(0).getLiteral());
+            logger.info("READ: Entity {} called with a key {}", uriParserResultView.getTargetEntitySet().getName(), uriParserResultView.getKeyPredicates().get(0).getLiteral());
         }
         try {
             Object readEntity = jpaProcessor.process(uriParserResultView);
@@ -71,7 +71,6 @@ public class CustomODataJpaProcessor extends ODataJPADefaultProcessor {
     }
 
 
-
     @Override
     public ODataResponse updateEntity(final PutMergePatchUriInfo uriParserResultView, final InputStream content,
                                       final String requestContentType, final boolean merge, final String contentType) throws ODataException, ODataJPAModelException, ODataJPARuntimeException, ODataNotFoundException {
@@ -88,7 +87,7 @@ public class CustomODataJpaProcessor extends ODataJPADefaultProcessor {
 
     @Override
     public ODataResponse deleteEntity(DeleteUriInfo uriParserResultView, String contentType) throws ODataException {
-        logger.info("DELETE: Entity {} called with key {}", uriParserResultView.getTargetEntitySet().getName(), uriParserResultView.getKeyPredicates().get(0).getLiteral());
+        logger.info("DELETE: Entity {} called with a key {}", uriParserResultView.getTargetEntitySet().getName(), uriParserResultView.getKeyPredicates().get(0).getLiteral());
         ODataResponse oDataResponse = null;
         try {
             this.oDataJPAContext.setODataContext(this.getContext());

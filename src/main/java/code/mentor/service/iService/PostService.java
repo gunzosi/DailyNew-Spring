@@ -3,7 +3,6 @@ package code.mentor.service.iService;
 import code.mentor.dto.SearchCriteria;
 import code.mentor.models.Post;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;

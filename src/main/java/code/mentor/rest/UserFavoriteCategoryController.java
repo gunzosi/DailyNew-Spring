@@ -8,7 +8,6 @@ import code.mentor.models.User;
 import code.mentor.models.UserFavoriteCategory;
 import code.mentor.payload.request.FavoriteCategoryRequest;
 import code.mentor.payload.response.MessageResponse;
-import code.mentor.repository.CategoryRepository;
 import code.mentor.repository.UserRepository;
 import code.mentor.service.iService.PostService;
 import code.mentor.service.iService.UserFavoriteCategoryService;

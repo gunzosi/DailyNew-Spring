@@ -12,8 +12,11 @@ import java.util.Optional;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
     Optional<Post> findByLink(String link);
+
     List<Post> findByTitleContaining(String name);
+
     Page<Post> findAll(Pageable pageable);
+
     List<Post> findByCategoryIdIn(List<Integer> categoryIds);
 }
 

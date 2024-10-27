@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface UserFavoriteCategoryService {
     void addFavoriteCategories(Long userId, FavoriteCategoryRequest request);
+
     List<UserFavoriteCategory> getFavoriteCategoriesByUserId(Long userId);
 
 }

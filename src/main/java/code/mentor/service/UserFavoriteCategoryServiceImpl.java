@@ -1,10 +1,10 @@
 package code.mentor.service;
 
+import code.mentor.dto.CategoryIdDTO;
 import code.mentor.models.Category;
 import code.mentor.models.User;
 import code.mentor.models.UserFavoriteCategory;
 import code.mentor.models.UserFavoriteCategoryId;
-import code.mentor.dto.CategoryIdDTO;
 import code.mentor.payload.request.FavoriteCategoryRequest;
 import code.mentor.repository.CategoryRepository;
 import code.mentor.repository.UserFavoriteCategoryRepository;

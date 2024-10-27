@@ -17,7 +17,6 @@ import jakarta.ws.rs.ext.Provider;
 import org.apache.olingo.odata2.api.ODataServiceFactory;
 import org.apache.olingo.odata2.core.rest.ODataRootLocator;
 import org.apache.olingo.odata2.core.rest.app.ODataApplication;
-import org.apache.olingo.odata2.jpa.processor.api.ODataJPAServiceFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
@@ -31,8 +30,8 @@ public class JerseyConfig extends ResourceConfig {
         ODataApplication oDataApplication = new ODataApplication();
         oDataApplication
                 .getClasses()
-                .forEach( c -> {
-                    if ( !ODataRootLocator.class.isAssignableFrom(c)) {
+                .forEach(c -> {
+                    if (!ODataRootLocator.class.isAssignableFrom(c)) {
                         register(c);
                     }
                 });
@@ -46,7 +45,7 @@ public class JerseyConfig extends ResourceConfig {
         private OdataJpaServiceFactory serviceFactory;
 
         @Inject
-        public ODataServiceRootLocator (OdataJpaServiceFactory serviceFactory) {
+        public ODataServiceRootLocator(OdataJpaServiceFactory serviceFactory) {
             this.serviceFactory = serviceFactory;
         }
 
@@ -65,6 +64,7 @@ public class JerseyConfig extends ResourceConfig {
 
         @Context
         private HttpServletRequest httpRequest;
+
         public EntityManagerFilter(EntityManagerFactory entityManagerFactory) {
             this.entityManagerFactory = entityManagerFactory;
         }
@@ -77,12 +77,13 @@ public class JerseyConfig extends ResourceConfig {
                 entityManager.getTransaction().begin();
             }
         }
+
         @Override
         public void filter(ContainerRequestContext requestContext,
                            ContainerResponseContext responseContext) throws IOException {
             EntityManager entityManager = (EntityManager) httpRequest.getAttribute(EM_REQUEST_ATTRIBUTE);
             if (!"GET".equalsIgnoreCase(requestContext.getMethod())) {
-                EntityTransaction entityTransaction = entityManager.getTransaction(); //we do not commit because it's just a READ
+                EntityTransaction entityTransaction = entityManager.getTransaction();
                 if (entityTransaction.isActive() && !entityTransaction.getRollbackOnly()) {
                     entityTransaction.commit();
                 }

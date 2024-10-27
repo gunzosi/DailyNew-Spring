@@ -5,8 +5,10 @@ import code.mentor.models.Post;
 import code.mentor.repository.PostRepository;
 import code.mentor.service.iService.PostService;
 import com.intuit.fuzzymatcher.component.MatchService;
+import com.intuit.fuzzymatcher.domain.Document;
+import com.intuit.fuzzymatcher.domain.Element;
+import com.intuit.fuzzymatcher.domain.ElementType;
 import com.intuit.fuzzymatcher.domain.Match;
-import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,9 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.intuit.fuzzymatcher.domain.Document;
-import com.intuit.fuzzymatcher.domain.Element;
-import com.intuit.fuzzymatcher.domain.ElementType;
 
 import java.util.List;
 import java.util.Map;
@@ -73,7 +72,6 @@ public class PostServiceImpl implements PostService {
     public Optional<List<Post>> searchPostsByBody(SearchCriteria criteria) {
         return Optional.ofNullable(postRepository.findByTitleContaining(criteria.getQuery()));
     }
-
 
 
 //    @Override
@@ -145,7 +143,6 @@ public class PostServiceImpl implements PostService {
     }
 
 
-
     @Override
     public Page<Post> getAllPosts(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC,
@@ -158,7 +155,6 @@ public class PostServiceImpl implements PostService {
     public List<Post> getPostsByCategories(List<Integer> categoryIds) {
         return postRepository.findByCategoryIdIn(categoryIds);
     }
-
 
 
 }

@@ -2,6 +2,7 @@ package code.mentor.service;
 
 import code.mentor.config.CustomODataJpaProcessor;
 import code.mentor.config.JerseyConfig;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.olingo.odata2.api.ODataService;
 import org.apache.olingo.odata2.api.ODataServiceFactory;
 import org.apache.olingo.odata2.api.edm.provider.EdmProvider;
@@ -14,7 +15,6 @@ import org.apache.olingo.odata2.jpa.processor.api.factory.ODataJPAAccessFactory;
 import org.apache.olingo.odata2.jpa.processor.api.factory.ODataJPAFactory;
 
 import javax.persistence.EntityManager;
-import jakarta.servlet.http.HttpServletRequest;
 
 public class CustomODataServiceFactory extends ODataServiceFactory {
 

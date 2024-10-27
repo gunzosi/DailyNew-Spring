@@ -1,7 +1,6 @@
 package code.mentor.service.job;
 
 import code.mentor.service.RssFeedServiceImpl;
-import io.micrometer.common.lang.NonNullApi;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
